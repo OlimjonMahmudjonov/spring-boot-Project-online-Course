@@ -15,9 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserUpdateDto {
-    @NotNull(message = "ID cannot be null")
+   /* @NotNull(message = "ID cannot be null")
     private Long id;
-
+*/
     private String username;
     private String email;
     private String password;

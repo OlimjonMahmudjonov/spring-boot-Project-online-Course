@@ -38,5 +38,5 @@ public class UserCreateDto {
 
     private String telegramUserName;
 
-    private List<Long> enrolledCourseIds;
+    //private List<Long> enrolledCourseIds;
 }

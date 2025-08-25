@@ -53,24 +53,24 @@ public class OnlineEdu extends TelegramLongPollingBot {
                     displayCourse(chatId);
                     usersStates.put(chatId, TelegramStat.SELECT_COURSE.toString());
                 } else {
-                    sendMessage(chatId, "avval ro`yxatdan o`ting .. /registration");
+                    sendMessage(chatId, " \uD83D\uDCEE  Please register first ../registration");
                 }
             } else if (messageText.equals("/my_courses")) {
                 if (isUserRegistration(chatId)) {
                     showMainCourses(chatId);
-                    usersStates.put(chatId, TelegramStat.STARTED.toString()); // Holatni qayta o'rnatish
+                    usersStates.put(chatId, TelegramStat.STARTED.toString());
                 } else {
-                    sendMessage(chatId, "Avval ro`yxatdan o`ting .. /registration");
+                    sendMessage(chatId, "\uD83D\uDCEE  Please register first .... /registration");
                 }
 
             } else if (messageText.equals("my_payments")) {
                 if (isUserRegistration(chatId)) {
                     showMyPayments(chatId);
                 } else {
-                    sendMessage(chatId, "avval ro`yxatdan o`ting .. /registration");
+                    sendMessage(chatId, "\uD83D\uDCEE  Please register first ../registration");
                 }
             } else if (messageText.equals("/registration")) {
-                sendMessage(chatId, "Enter Username.... ");
+                sendMessage(chatId, " \uD83D\uDC71\u200D♂\uFE0F  Enter Username.... ");
                 usersStates.put(chatId, TelegramStat.AWAITING_USERNAME.toString());
             } else if (current.equals(TelegramStat.SELECT_COURSE.toString())) {
                 handleCoursesSelection(chatId, messageText);
@@ -81,18 +81,18 @@ public class OnlineEdu extends TelegramLongPollingBot {
                 handleEmailCheckForExistingUser(chatId, update, messageText);
             } else if (current.equals("AWAITING_USERNAME")) {
                 tempRegistrationData.put(chatId, messageText);
-                sendMessage(chatId, "Enter Email.... ");
+                sendMessage(chatId, " \uD83D\uDCEA    Enter Email.... ");
                 usersStates.put(chatId, TelegramStat.AWAITING_EMAIL.toString());
             } else if (current.equals(TelegramStat.AWAITING_EMAIL.toString())) {
                 tempRegistrationData.put(chatId, messageText);
-                sendMessage(chatId, "Enter Password.... ");
+                sendMessage(chatId, " \uD83D\uDDDD  Enter Password.... ");
                 usersStates.put(chatId, TelegramStat.AWAITING_PASSWORD.toString());
             } else if (current.equals(TelegramStat.AWAITING_PASSWORD.toString())) {
                 completeRegistration(chatId, update, messageText);
             } else if (current.equals("/menu")) {
                 showMainMenu(chatId);
             } else {
-                sendMessage(chatId, "wrong something , correct chose options");
+                sendMessage(chatId, "\uD83E\uDD37  wrong something , correct chose options");
             }
         } else if (update.hasCallbackQuery()) {
             Long chatId = update.getCallbackQuery().getFrom().getId().longValue();
@@ -111,11 +111,11 @@ public class OnlineEdu extends TelegramLongPollingBot {
     private void handleStartCommand(Long chatId, Update update) throws TelegramApiException {
         Optional<User> optionalUser = userRepository.findByTelegramChatId(chatId);
         if (optionalUser.isPresent()) {
-            sendMessage(chatId, "Welcome to bot . you  was registration  already . /menu on the click  ");
+            sendMessage(chatId, " \uD83D\uDCC7  Welcome to the bot! You are already registered. \n \uD83D\uDCDD   /menu  ");
             usersStates.put(chatId, TelegramStat.STARTED.toString());
             showMainMenu(chatId);
         } else {
-            sendMessage(chatId, "welcome to bot , you  was  not  registration , please before registration  do ... /registration   ");
+            sendMessage(chatId, "Welcome to the bot! You are not registered. Please register first using. \n \uD83D\uDCE5  /registration   ");
             usersStates.put(chatId, TelegramStat.AWAITING_EMAIL_CHECK.toString());
         }
 
@@ -127,7 +127,7 @@ public class OnlineEdu extends TelegramLongPollingBot {
             User user = byEmail.get();
             user.setTelegramChatId(chatId);
             user.setTelegramUserName(update.getMessage().getFrom().getUserName() != null
-                    ? update.getMessage().getFrom().getUserName() : "Anonymous");
+                    ? update.getMessage().getFrom().getUserName() : "\uD83D\uDEB6  Anonymous");
             userRepository.save(user);
             sendMessage(chatId, "you connected account  ... /menu on the click  ");
             showMainMenu(chatId);
@@ -143,7 +143,7 @@ public class OnlineEdu extends TelegramLongPollingBot {
         String email = tempRegistrationData.get(chatId + "_email");
 
         if (userRepository.findByUsername(username).isPresent() || userRepository.findByEmail(email).isPresent()) {
-            sendMessage(chatId, "Username or Email already in use , please agean  ");
+            sendMessage(chatId, " \uD83D\uDC7B   This username or email is already taken. \n Please try again. ");
             usersStates.put(chatId, TelegramStat.STARTED.toString());
             return;
         }
@@ -154,14 +154,14 @@ public class OnlineEdu extends TelegramLongPollingBot {
         newUser.setPassword(passwordEncoder.encode(password));
         newUser.setTelegramChatId(chatId);
         newUser.setTelegramUserName(update.getMessage().getFrom().getUserName() != null
-                ? update.getMessage().getFrom().getUserName() : "Anonymous");
+                ? update.getMessage().getFrom().getUserName() : "\uD83D\uDEB6  Anonymous");
         newUser.setVisible(true);
         newUser.setRoles(GeneralRoles.ROLE_STUDENT);
         newUser.setStatus(GeneralsStatus.ACTIVE);
         newUser.setCreatedDate(LocalDateTime.now());
 
         userRepository.save(newUser);
-        sendMessage(chatId, "Your account has been created  ... ");
+        sendMessage(chatId, "\uD83D\uDCE9  Your account has been created  ... ");
         tempRegistrationData.remove(chatId);
         tempRegistrationData.remove(chatId + "_email");
         usersStates.put(chatId, TelegramStat.STARTED.toString());
@@ -179,25 +179,25 @@ public class OnlineEdu extends TelegramLongPollingBot {
 
 
     private void showMainMenu(Long chatId) throws TelegramApiException {
-        String menuText = "Asosiy menyu:\n" +
-                "/pay - 🧑‍🏫 Kursni sotib olish\n" +
-                "/my_courses - 📂 Mening kurslarim\n" +
-                "/my_payments - 💳 Mening to‘lovlarim";
+        String menuText = "\uD83D\uDCDA   Menu :\n" +
+                "/pay - 🧑‍🏫   Purchase a course\n" +
+                "/my_courses - 📂 My Courses \n" +
+                "/my_payments - 💳 My Payments ";
         sendMessage(chatId, menuText);
-        usersStates.put(chatId, TelegramStat.STARTED.toString()); // Holatni yangilash
+        usersStates.put(chatId, TelegramStat.STARTED.toString());
     }
 
     @SneakyThrows
     private void showMainCourses(Long chatId) {
         User user = getUserByChatId(chatId);
         if (user == null) {
-            sendMessage(chatId, "Foydalanuvchi topilmadi!");
+            sendMessage(chatId, "Username not found ");
             return;
         }
         List<Payment> payments = paymentRepository.findByUserAndPayProgress(user, PayProgress.SUCCESS);
-        StringBuilder courses = new StringBuilder("Sizning kurslaringiz:\n");
+        StringBuilder courses = new StringBuilder("\uD83D\uDDC2  My  Courses :\n");
         if (payments.isEmpty()) {
-            courses.append("Hech qanday to‘lov topilmadi!");
+            courses.append("No payment found!");
         } else {
             for (Payment payment : payments) {
                 courses.append(payment.getCourse().getTitle()).append("\n");
@@ -210,7 +210,7 @@ public class OnlineEdu extends TelegramLongPollingBot {
     private void showMyPayments(Long chatId) {
         User user = getUserByChatId(chatId);
         List<Payment> payments = paymentRepository.findByUser(user);
-        StringBuilder sb = new StringBuilder("Sizning  to`lovlaringiz ...");
+        StringBuilder sb = new StringBuilder("\uD83D\uDCB3   My Payments .... ");
         if (payments.isEmpty()) {
             sb.append("No payments found ");
         } else {
@@ -231,17 +231,17 @@ public class OnlineEdu extends TelegramLongPollingBot {
         List<InlineKeyboardButton> row = new ArrayList<>();
         List<Course> courses = courseRepository.findAll();
         if (courses.isEmpty()) {
-            sendMessage(chatId, " hozirda  kursalr  mavjud emas  , iltmos  keyinroq  uringib ko`rin ");
+            sendMessage(chatId, " No courses are currently available. Please try again later.");
             return;
         } else {
 
 
-            StringBuilder sb = new StringBuilder("Courses Menu ");
+            StringBuilder sb = new StringBuilder(" \uD83D\uDCBB   Courses Menu \n  ");
             for (Course course : courses) {
                 String price = course.getIsFree() ? " Discount "
                         : (course.getDiscountPrice() != null && course.getDiscountEndDate().isAfter(LocalDateTime.now())
-                        ? " Dollar" + course.getDiscountPrice() : "Dollar" + course.getOriginalPrice());
-                sb.append(course.getId()).append("-> ").append(course.getTitle()).append("-").append(price).append("\n");
+                        ? " \uD83D\uDCB5  Price  = " + course.getDiscountPrice()  +" $ ": " \uD83D\uDCB5  Price = " + course.getOriginalPrice() +" $ ");
+                sb.append(course.getId()).append(" =>  ").append(course.getTitle()).append(" - ").append(price).append("\n");
 
                 InlineKeyboardButton button = new InlineKeyboardButton();
                 button.setText(String.valueOf(course.getId()));
@@ -273,13 +273,13 @@ public class OnlineEdu extends TelegramLongPollingBot {
                 Course course = courseOptional.get();
                 userCourseSelect.put(chatId, course.getId());
                 if (course.getIsFree()) {
-                    sendMessage(chatId, " siz tekin  kursni tanladingiz :" + course.getTitle() + "Amal  qilsih  mudati " + course.getDuration() + "tastiqlash uchun /confirm bosing ");
+                    sendMessage(chatId, " You chose a free course ... :" + course.getTitle() + "Expiration date ... " + course.getDuration() + "To confirm \uD83C\uDFE7   /confirm  ");
                     usersStates.put(chatId, TelegramStat.SELECT_FREE.toString());
                 } else {
                     String price = course.getDiscountPrice() != null && course.getDiscountEndDate().isAfter(LocalDateTime.now())
-                            ? "Dollar" + course.getDiscountPrice() : "Dollar" + course.getOriginalPrice();
-                    String paymentMessage = "siz tanlagan  course " + course.getTitle()
-                            + "\n Price " + price + "\n To`lov uchun karta  raqam : " + CART_NUMBER;
+                            ? "\uD83D\uDCB5  price = " + course.getDiscountPrice() +" $ " : "\uD83D\uDCB5 price = " + course.getOriginalPrice() +" $ ";
+                    String paymentMessage = "Your choose " + course.getTitle()
+                            + "\n Price " + price + "\n Card number for payment: \uD83D\uDCB5  " + CART_NUMBER;
                     InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
                     List<List<InlineKeyboardButton>> rows = new ArrayList<>();
                     InlineKeyboardButton backButton = new InlineKeyboardButton();
@@ -288,7 +288,7 @@ public class OnlineEdu extends TelegramLongPollingBot {
                     rows.add(Collections.singletonList(backButton));
                     markup.setKeyboard(rows);
                     sendMessageWithMarkup(chatId, paymentMessage, markup);
-                    savePaymentIgnition(course, "tokenUchun ", chatId);
+                    savePaymentIgnition(course, "this for token  ", chatId);
                     usersStates.put(chatId, TelegramStat.PAYMENT_.toString() + courseId);
 
                 }
@@ -296,7 +296,7 @@ public class OnlineEdu extends TelegramLongPollingBot {
                 sendMessage(chatId, "course not found");
             }
         } catch (NumberFormatException e) {
-            sendMessage(chatId, " wrong number , please check course id ");
+            sendMessage(chatId, "\uD83E\uDD37  wrong number , please check course id ");
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }
@@ -306,7 +306,7 @@ public class OnlineEdu extends TelegramLongPollingBot {
     private void confirmFreeCourse(Long chatId, User user) throws TelegramApiException {
         Long courseId = userCourseSelect.get(chatId);
         if (courseId == null) {
-            sendMessage(chatId, "course tanlanmagan  /pay ni  bosing ");
+            sendMessage(chatId, "course choose  \uD83D\uDCB3    /pay ");
             return;
         }
         Course course = courseRepository.findById(courseId).orElse(null);
@@ -314,13 +314,13 @@ public class OnlineEdu extends TelegramLongPollingBot {
             sendMessage(chatId, "wrong something ....");
         }
         if (course.getIsFree()) {
-            sendMessage(chatId, "tabriklaymiz  siz bepul  kursni tanladingiz " + course.getTitle()
-                    + " amali qilish  davomiyligi " + course.getDuration());
+            sendMessage(chatId, "Congratulations! You have selected a free course" + course.getTitle()
+                    + " Expiration date " + course.getDuration());
             usersStates.put(chatId, TelegramStat.STARTED.toString());
             userCourseSelect.remove(chatId);
         } else {
-            sendMessage(chatId, " bu kurs tekin emas " + course.getTitle()
-                    + " Price " + course.getOriginalPrice());
+            sendMessage(chatId, " This course is not free. " + course.getTitle()
+                    + "  \uD83D\uDCB8   Price " + course.getOriginalPrice());
         }
 
 
@@ -349,8 +349,8 @@ public class OnlineEdu extends TelegramLongPollingBot {
     private void savePaymentIgnition(Course course, String token, Long chatId) throws TelegramApiException {
         User user = userRepository.findByTelegramChatId(chatId).orElseGet(() -> {
             User newUser = new User();
-            newUser.setEmail("Anonymous" + chatId + "_email");
-            newUser.setTelegramUserName("Anonymous" + chatId);
+            newUser.setEmail("\uD83D\uDEB6 Anonymous" + chatId + "_email");
+            newUser.setTelegramUserName("\uD83D\uDEB6 Anonymous" + chatId);
             newUser.setVisible(true);
             newUser.setRoles(GeneralRoles.ROLE_STUDENT);
             newUser.setCreatedDate(LocalDateTime.now());

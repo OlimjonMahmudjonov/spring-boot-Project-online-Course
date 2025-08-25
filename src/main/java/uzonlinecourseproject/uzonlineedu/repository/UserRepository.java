@@ -2,6 +2,7 @@ package uzonlinecourseproject.uzonlineedu.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import uzonlinecourseproject.uzonlineedu.entity.User;
+import uzonlinecourseproject.uzonlineedu.enums.GeneralRoles;
 
 import java.util.Optional;
 
@@ -15,8 +16,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByTelegramChatId(Long telegramChatId);
 
     Optional<User> findByEmail(String email);
+    long countByRoles(GeneralRoles role);
 
-    long countByRolesContaining(String instructor);
-
-  //  long countByIsActiveTrueAndRolesContaining(String student);
 }

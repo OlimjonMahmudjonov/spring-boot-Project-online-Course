@@ -11,6 +11,7 @@ import uzonlinecourseproject.uzonlineedu.dto.UserDto;
 import uzonlinecourseproject.uzonlineedu.email.EmailService;
 import uzonlinecourseproject.uzonlineedu.entity.User;
 import uzonlinecourseproject.uzonlineedu.entity.VerificationToken;
+import uzonlinecourseproject.uzonlineedu.enums.GeneralRoles;
 import uzonlinecourseproject.uzonlineedu.exception.AlreadyExistsException;
 import uzonlinecourseproject.uzonlineedu.exception.ResourceNotFoundException;
 import uzonlinecourseproject.uzonlineedu.modify.UserCreateDto;
@@ -51,7 +52,7 @@ public class UserService implements UserServiceImpl {
         user.setEmail(createUser.getEmail());
         user.setPassword(passwordEncoder.encode(createUser.getPassword()));
         user.setStatus(createUser.getStatus());
-        user.setRoles(createUser.getRoles());
+        user.setRoles(GeneralRoles.ROLE_STUDENT);
         user.setVisible(createUser.getVisible());
         user.setCreatedDate(LocalDateTime.now());
         user.setTelegramChatId(createUser.getTelegramChatId());
@@ -169,14 +170,14 @@ public class UserService implements UserServiceImpl {
     @Override
     public long countStudentActive() {// TODO fix active count
       //  return userRepository.countByIsActiveTrueAndRolesContaining("STUDENT");
-        return 0;
+        return userRepository.countByRoles(GeneralRoles.ROLE_STUDENT);
     }
 
     @Override
     public long countInstructor() {// TODO fix
 
+        return userRepository.countByRoles(GeneralRoles.ROLE_INSTRUCTOR);
 
-        return userRepository.countByRolesContaining("INSTRUCTOR");
     }
 
     private UserDto convertToDto(User user) {

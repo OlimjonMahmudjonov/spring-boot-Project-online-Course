@@ -41,14 +41,14 @@ public class UserController {
         }
     }
 
-   /* @GetMapping("/count/active_student")
+    @GetMapping("/count/active_student")
     public ResponseEntity<ApiResponse> countActiveStudent() {
-        Long count = userService.countStudentActive();
+        long count = userService.countStudentActive();
         return ResponseEntity.ok(new ApiResponse("Successfully ", count));
-    }*/
+    }
 
-    @GetMapping("/count/interact")
-    public ResponseEntity<ApiResponse> countTeacherInteract() {
+    @GetMapping("/count/instructor")
+    public ResponseEntity<ApiResponse> countTeacherInstructor() {
         Long count = userService.countInstructor();
         return ResponseEntity.ok(new ApiResponse("Successfully ", count));
     }
