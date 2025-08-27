@@ -43,7 +43,7 @@ public class CourseController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResponse> deleteCourse(@PathVariable Long id) {
         try {
             courseService.deleteCourseById(id);
@@ -54,7 +54,7 @@ public class CourseController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<ApiResponse> getCourseById(@PathVariable Long id) {
         try {
             CourseDto courseDto = courseService.getCourseById(id);
@@ -82,6 +82,13 @@ public class CourseController {
         }
     }
 
+
+
+
+
+
+
+
     @GetMapping("/recent")
     public ResponseEntity<ApiResponse> getRecentCourses(@RequestParam(defaultValue = "10") int limit, Pageable pageable) {
         List<CourseDto> courseDtos = courseService.getRecentCourses(limit, pageable);
@@ -100,11 +107,6 @@ public class CourseController {
         return ResponseEntity.ok(new ApiResponse("Courses retrieved successfully", courseDtos));
     }
 
-    @GetMapping("/count")
-    public ResponseEntity<ApiResponse> getTotalCoursesCount() {
-        long count = courseService.getAllCoursesCount();
-        return ResponseEntity.ok(new ApiResponse("Total courses count retrieved successfully", count));
-    }
 
     @GetMapping("/exists/{id}")
     public ResponseEntity<ApiResponse> existsById(@PathVariable Long id) {

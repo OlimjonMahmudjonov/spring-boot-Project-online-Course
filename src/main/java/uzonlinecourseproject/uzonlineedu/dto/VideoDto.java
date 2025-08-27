@@ -19,6 +19,6 @@ public class VideoDto {
     private String downloadUrl;
     private Long size;
     private LocalDateTime uploadDate;
-    private List<Long> lessonIds;  // Darslar ID'lari
-    private List<Long> courseIds;  // Kurslar ID'lari (previyu uchun)
+    private List<Long> lessonIds;
+    private List<Long> courseIds;
 }

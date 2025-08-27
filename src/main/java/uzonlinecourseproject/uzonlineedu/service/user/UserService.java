@@ -52,7 +52,7 @@ public class UserService implements UserServiceImpl {
         user.setEmail(createUser.getEmail());
         user.setPassword(passwordEncoder.encode(createUser.getPassword()));
         user.setStatus(createUser.getStatus());
-        user.setRoles(GeneralRoles.ROLE_STUDENT);
+        user.setRoles(createUser.getRoles());
         user.setVisible(createUser.getVisible());
         user.setCreatedDate(LocalDateTime.now());
         user.setTelegramChatId(createUser.getTelegramChatId());

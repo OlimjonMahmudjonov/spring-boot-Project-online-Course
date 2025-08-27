@@ -23,7 +23,7 @@ public class CourseDto {
     private Boolean isFree;
     private String duration;
     private GeneralLevel level;
-    private Long categoryId;  // Category ID
+    private Long categoryId;
     private List<LessonDto> lessons;
     private List<ReviewDto> reviews;
     private List<CourseCommentDto> comments;

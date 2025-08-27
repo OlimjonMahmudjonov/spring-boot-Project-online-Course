@@ -39,6 +39,5 @@ public class CourseCreateDto {
     @NotNull(message = "Category ID cannot be null")
     private Long categoryId;
 
-    private List<Long> lessonIds;
-    private Long previewVideoId;
+
 }

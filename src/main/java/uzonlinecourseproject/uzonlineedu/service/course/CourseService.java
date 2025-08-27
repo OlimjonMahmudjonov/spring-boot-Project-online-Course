@@ -74,7 +74,7 @@ public class CourseService implements CourseServiceImpl {
                     if (courseUpdateDto.getLevel() != null) {
                         existingCourse.setLevel(courseUpdateDto.getLevel());
                     }
-                    if (courseUpdateDto.getCategoryId() != null) {
+                   /* if (courseUpdateDto.getCategoryId() != null) {
                         Category category = categoryRepository.findById(courseUpdateDto.getCategoryId())
                                 .orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + courseUpdateDto.getCategoryId()));
                         existingCourse.setCategory(category);
@@ -90,7 +90,7 @@ public class CourseService implements CourseServiceImpl {
                         Video video = videoRepository.findById(courseUpdateDto.getPreviewVideoId())
                                 .orElseThrow(() -> new ResourceNotFoundException("Video not found with id " + courseUpdateDto.getPreviewVideoId()));
                         existingCourse.setPreviewVideo(video);
-                    }
+                    }*/
                     return convertToDto(courseRepository.save(existingCourse));
                 }).orElseThrow(() -> new ResourceNotFoundException("Course not found with id " + id));
     }
@@ -112,18 +112,18 @@ public class CourseService implements CourseServiceImpl {
                     course.setDuration(req.getDuration());
                     course.setLevel(req.getLevel());
                     course.setCategory(category);
-                    if (req.getLessonIds() != null) {
+                    /*if (req.getLessonIds() != null) {
                         List<Lesson> lessons = req.getLessonIds().stream()
                                 .map(lessonId -> lessonRepository.findById(lessonId)
                                         .orElseThrow(() -> new ResourceNotFoundException("Lesson not found with id " + lessonId)))
                                 .collect(Collectors.toList());
                         course.setLessons(lessons);
-                    }
-                    if (req.getPreviewVideoId() != null) {
+                    }*/
+                    /*if (req.getPreviewVideoId() != null) {
                         Video video = videoRepository.findById(req.getPreviewVideoId())
                                 .orElseThrow(() -> new ResourceNotFoundException("Video not found with id " + req.getPreviewVideoId()));
                         course.setPreviewVideo(video);
-                    }
+                    }*/
                     return convertToDto(courseRepository.save(course));
                 }).orElseThrow(() -> new ResourceNotFoundException("Invalid course data"));
     }

@@ -15,9 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserUpdateDto {
-   /* @NotNull(message = "ID cannot be null")
-    private Long id;
-*/
+
     private String username;
     private String email;
     private String password;
@@ -26,5 +24,5 @@ public class UserUpdateDto {
     private Boolean visible;
     private Long telegramChatId;
     private String telegramUserName;
-    private List<Long> enrolledCourseIds;  // Ixtiyoriy
+   // private List<Long> enrolledCourseIds;
 }

@@ -14,14 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VideoUpdateDto {
-    @NotNull(message = "ID cannot be null")
-    private Long id;
+
 
     private String title;
     private String originalFilename;
     private String downloadUrl;
     @Positive(message = "Size must be positive")
     private Long size;
-    private List<Long> lessonIds;  // Ixtiyoriy
-    private List<Long> courseIds;  // Ixtiyoriy
+
 }

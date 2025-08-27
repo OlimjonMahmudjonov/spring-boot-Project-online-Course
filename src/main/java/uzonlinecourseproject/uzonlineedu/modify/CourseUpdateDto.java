@@ -16,8 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CourseUpdateDto {
-    @NotNull(message = "ID cannot be null")
-    private Long id;
+
 
     private String title;
     private String description;
@@ -28,7 +27,5 @@ public class CourseUpdateDto {
     private Boolean isFree;
     private String duration;
     private GeneralLevel level;
-    private Long categoryId;
-    private List<Long> lessonIds;
-    private Long previewVideoId;
+
 }

@@ -11,12 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LessonUpdateDto {
-    @NotNull(message = "ID cannot be null")
-    private Long id;
+
     private String title;
     private String content;
     private String videoUrl;
     private Integer lessonOrder;
-    private Long courseId;
-    private Long videoId;
+    //private Long courseId;
+    //private Long videoId;
 }

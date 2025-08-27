@@ -28,6 +28,6 @@ public class VideoCreateDto {
     @Positive(message = "Size must be positive")
     private Long size;
 
-    private List<Long> lessonIds;  // Ixtiyoriy
-    private List<Long> courseIds;  // Ixtiyoriy (previyu uchun)
+    private List<Long> lessonIds;
+
 }

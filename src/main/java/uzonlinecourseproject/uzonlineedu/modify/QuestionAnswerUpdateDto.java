@@ -11,10 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuestionAnswerUpdateDto {
-    @NotNull(message = "ID cannot be null")
-    private Long id;
+
 
     private String question;
     private String answer;
-    private Long courseId;
+    //private Long courseId;
 }

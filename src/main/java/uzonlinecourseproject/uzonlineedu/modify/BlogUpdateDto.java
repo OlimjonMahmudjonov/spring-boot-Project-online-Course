@@ -11,8 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlogUpdateDto {
-    @NotNull(message = "ID cannot be null")
-    private Long id;
 
     private String title;
     private String content;

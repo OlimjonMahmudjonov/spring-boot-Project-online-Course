@@ -15,6 +15,6 @@ public class CourseCommentDto {
     private Long id;
     private String content;
     private LocalDateTime createdAt;
-    private Long userId;  // User ID
-    private Long courseId;  // Course ID
+    private Long userId;
+    private Long courseId;
 }

@@ -11,8 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryUpdateDto {
-    @NotNull(message = "ID cannot be null")
-    private Long id;
+
 
     private String name;
     private String description;

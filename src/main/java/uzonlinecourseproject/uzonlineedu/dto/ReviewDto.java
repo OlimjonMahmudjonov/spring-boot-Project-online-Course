@@ -16,6 +16,6 @@ public class ReviewDto {
     private Integer rating;
     private String comment;
     private LocalDateTime createdAt;
-    private Long userId;  // User ID
-    private Long courseId;  // Course ID
+    private Long userId;
+    private Long courseId;
 }

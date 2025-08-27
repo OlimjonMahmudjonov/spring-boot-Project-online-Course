@@ -51,11 +51,11 @@ public class QuestionAnswerService implements IQuestionAnswerService {
                     if (questionAnswerUpdateDto.getAnswer() != null) {
                         existingQA.setAnswer(questionAnswerUpdateDto.getAnswer());
                     }
-                    if (questionAnswerUpdateDto.getCourseId() != null) {
+                   /* if (questionAnswerUpdateDto.getCourseId() != null) {
                         Course course = courseRepository.findById(questionAnswerUpdateDto.getCourseId())
                                 .orElseThrow(() -> new ResourceNotFoundException("Course not found with id " + questionAnswerUpdateDto.getCourseId()));
                         existingQA.setCourse(course);
-                    }
+                    }*/
                     return convertToDto(questionAnswerRepository.save(existingQA));
                 }).orElseThrow(() -> new ResourceNotFoundException("QuestionAnswer not found with id " + id));
     }

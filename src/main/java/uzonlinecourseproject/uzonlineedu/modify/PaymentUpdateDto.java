@@ -15,8 +15,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentUpdateDto {
-    @NotNull(message = "ID cannot be null")
-    private Long id;
+
 
     @Positive(message = "Amount must be positive")
     private BigDecimal amount;

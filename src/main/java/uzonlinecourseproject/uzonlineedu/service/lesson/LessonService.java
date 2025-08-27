@@ -59,7 +59,7 @@ public class LessonService implements LessonServiceImpl {
                     if (lessonUpdateDto.getLessonOrder() != null) {
                         existingLesson.setLessonOrder(lessonUpdateDto.getLessonOrder());
                     }
-                    if (lessonUpdateDto.getCourseId() != null) {
+                   /* if (lessonUpdateDto.getCourseId() != null) {
                         Course course = courseRepository.findById(lessonUpdateDto.getCourseId())
                                 .orElseThrow(() -> new ResourceNotFoundException("Course not found with id " + lessonUpdateDto.getCourseId()));
                         existingLesson.setCourse(course);
@@ -68,15 +68,15 @@ public class LessonService implements LessonServiceImpl {
                         Video video = videoRepository.findById(lessonUpdateDto.getVideoId())
                                 .orElseThrow(() -> new ResourceNotFoundException("Video not found with id " + lessonUpdateDto.getVideoId()));
                         existingLesson.setVideo(video);
-                    }
+                    }*/
                     return convertToDto(lessonRepository.save(existingLesson));
                 }).orElseThrow(() -> new ResourceNotFoundException("Lesson not found with id " + id));
     }
 
     @Override
     public LessonDto createLesson(LessonCreateDto lessonCreateDto) {
-        Course course = courseRepository.findById(lessonCreateDto.getCourseId())
-                .orElseThrow(() -> new ResourceNotFoundException("Course not found with id " + lessonCreateDto.getCourseId()));
+            Course course = courseRepository.findById(lessonCreateDto.getCourseId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Course not found with id " + lessonCreateDto.getCourseId()));
 
         return Optional.of(lessonCreateDto)
                 .map(req -> {
@@ -86,11 +86,7 @@ public class LessonService implements LessonServiceImpl {
                     lesson.setVideoUrl(req.getVideoUrl());
                     lesson.setLessonOrder(req.getLessonOrder());
                     lesson.setCourse(course);
-                    if (req.getVideoId() != null) {
-                        Video video = videoRepository.findById(req.getVideoId())
-                                .orElseThrow(() -> new ResourceNotFoundException("Video not found with id " + req.getVideoId()));
-                        lesson.setVideo(video);
-                    }
+
                     return convertToDto(lessonRepository.save(lesson));
                 }).orElseThrow(() -> new ResourceNotFoundException("Invalid lesson data"));
     }

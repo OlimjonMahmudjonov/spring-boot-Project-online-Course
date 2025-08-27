@@ -60,7 +60,7 @@ public class VideoService implements VideoServiceImpl {
                     if (videoUpdateDto.getSize() != null) {
                         existingVideo.setSize(videoUpdateDto.getSize());
                     }
-                    if (videoUpdateDto.getLessonIds() != null) {
+                    /*if (videoUpdateDto.getLessonIds() != null) {
                         List<Lesson> lessons = videoUpdateDto.getLessonIds().stream()
                                 .map(lessonId -> lessonRepository.findById(lessonId)
                                         .orElseThrow(() -> new ResourceNotFoundException("Lesson not found with id " + lessonId)))
@@ -73,7 +73,7 @@ public class VideoService implements VideoServiceImpl {
                                         .orElseThrow(() -> new ResourceNotFoundException("Course not found with id " + courseId)))
                                 .collect(Collectors.toList());
                         existingVideo.setCourses(courses);
-                    }
+                    }*/
                     return convertToDto(videoRepository.save(existingVideo));
                 }).orElseThrow(() -> new ResourceNotFoundException("Video not found with id " + id));
     }
@@ -95,13 +95,13 @@ public class VideoService implements VideoServiceImpl {
                                 .collect(Collectors.toList());
                         video.setLessons(lessons);
                     }
-                    if (req.getCourseIds() != null) {
+                   /* if (req.getCourseIds() != null) {
                         List<Course> courses = req.getCourseIds().stream()
                                 .map(courseId -> courseRepository.findById(courseId)
                                         .orElseThrow(() -> new ResourceNotFoundException("Course not found with id " + courseId)))
                                 .collect(Collectors.toList());
                         video.setCourses(courses);
-                    }
+                    }*/
                     return convertToDto(videoRepository.save(video));
                 }).orElseThrow(() -> new ResourceNotFoundException("Invalid video data"));
     }

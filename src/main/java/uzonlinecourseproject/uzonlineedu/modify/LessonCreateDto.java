@@ -25,5 +25,5 @@ public class LessonCreateDto {
     @NotNull(message = "Course ID cannot be null")
     private Long courseId;
 
-    private Long videoId;
+
 }
